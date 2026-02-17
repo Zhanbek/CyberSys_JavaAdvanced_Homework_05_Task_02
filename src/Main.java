@@ -1,10 +1,24 @@
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
+
+    private static void outputParametersInfo(Parameter[] params) {
+        System.out.print("(");
+        int len = params.length;
+        if (len > 0) {
+            for (int i = 0; i < len - 1; i++) {
+                System.out.print(params[i].getType().getTypeName().concat(" ").concat(params[i].getName()).concat(", "));
+            }
+            System.out.print(params[len - 1].getType().getTypeName().concat(" ").concat(params[len - 1].getName()));
+        }
+        System.out.print(")");
+    }
+
     public static void main(String[] args) throws ClassNotFoundException {
         Scanner scanner = new Scanner(System.in);
         System.out.println();
@@ -20,16 +34,8 @@ public class Main {
         if (constructors.length > 0) {
             for (Constructor<?> constructor : constructors) {
                 System.out.print(constructor.getName());
-                Class<?>[] paramTypes = constructor.getParameterTypes();
-                System.out.print("(");
-
-                if (paramTypes.length > 0) {
-                    for (int i = 0; i < paramTypes.length - 1; i++) {
-                        System.out.print(paramTypes[i].getTypeName().concat(", "));
-                    }
-                    System.out.print(paramTypes[paramTypes.length - 1].getTypeName());
-                }
-                System.out.print(")");
+                Parameter[] parameters = constructor.getParameters();
+                outputParametersInfo(parameters);
                 System.out.println();
             }
         } else {
@@ -62,17 +68,8 @@ public class Main {
         if (methods.length > 0) {
             for (Method method : methods) {
                 System.out.print(method.getReturnType().getTypeName() + " " + method.getName());
-
-                Class<?>[] paramTypes = method.getParameterTypes();
-                System.out.print("(");
-
-                if (paramTypes.length > 0) {
-                    for (int i = 0; i < paramTypes.length - 1; i++) {
-                        System.out.print(paramTypes[i].getTypeName().concat(", "));
-                    }
-                    System.out.print(paramTypes[paramTypes.length - 1].getTypeName());
-                }
-                System.out.print(")");
+                Parameter[] parameters = method.getParameters();
+                outputParametersInfo(parameters);
                 System.out.println();
             }
         } else {
