@@ -5,9 +5,8 @@ import java.lang.reflect.Parameter;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Main {
-
-    private static void outputParametersInfo(Parameter[] params) {
+class Helper {
+     static void outputParametersInfo(Parameter[] params) {
         System.out.print("(");
         int len = params.length;
         if (len > 0) {
@@ -19,7 +18,7 @@ public class Main {
         System.out.print(")");
     }
 
-    private static void outputcClassInfo(String className) throws ClassNotFoundException {
+    static void outputcClassInfo(String className) throws ClassNotFoundException {
         Class<?> cl = Class.forName(className);
 
         System.out.println();
@@ -71,14 +70,16 @@ public class Main {
             System.out.println("У класу відсутні Методи");
         }
     }
+}
 
+public class Main {
     public static void main(String[] args)  {
         Scanner scanner = new Scanner(System.in);
         System.out.println();
         System.out.print("Вкажіть назву класу, інформацію про який хочете отримати: ");
         String className = scanner.nextLine();
         try {
-            outputcClassInfo(className);
+            Helper.outputcClassInfo(className);
         } catch (ClassNotFoundException e) {
             System.out.println();
             System.out.println("Помилка: інформації про клас \"" + className + "\" не знайдено!");
