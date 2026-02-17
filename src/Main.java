@@ -1,7 +1,4 @@
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
+import java.lang.reflect.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -27,7 +24,7 @@ class Helper {
         Constructor<?>[] constructors = cl.getDeclaredConstructors();
         if (constructors.length > 0) {
             for (Constructor<?> constructor : constructors) {
-                System.out.print(constructor.getName());
+                System.out.print(Modifier.toString(constructor.getModifiers()).concat(" " ).concat(constructor.getName()));
                 Parameter[] parameters = constructor.getParameters();
                 outputParametersInfo(parameters);
                 System.out.println();
@@ -46,7 +43,7 @@ class Helper {
 
         if (fields.length > 0) {
             for  (Field field : fields) {
-                System.out.println(field.getType().getTypeName() + " " + field.getName());
+                System.out.println(Modifier.toString(field.getModifiers()) + " " + field.getType().getTypeName() + " " + field.getName());
             }
         } else {
             System.out.println("У клас відсутні поля");
@@ -61,7 +58,7 @@ class Helper {
 
         if (methods.length > 0) {
             for (Method method : methods) {
-                System.out.print(method.getReturnType().getTypeName() + " " + method.getName());
+                System.out.print(Modifier.toString(method.getModifiers()).concat( " ").concat(method.getReturnType().getTypeName()).concat(" ").concat( method.getName()));
                 Parameter[] parameters = method.getParameters();
                 outputParametersInfo(parameters);
                 System.out.println();
