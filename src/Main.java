@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 class Helper {
-     static void outputParametersInfo(Parameter[] params) {
+     private static void outputParametersInfo(Parameter[] params) {
         System.out.print("(");
         int len = params.length;
         if (len > 0) {
